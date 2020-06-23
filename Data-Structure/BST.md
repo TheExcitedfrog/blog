@@ -1,13 +1,13 @@
-#BST二分搜索树
+# BST二分搜索树
 
-###小知识点
+### 小知识点
 1.E泛型支持compareTo比较语法
    ```
     e.compaerTo(param) > 0 || <0 比较大小
    ```
 2.e.equals
 
-##深入理解递归终止条件
+## 深入理解递归终止条件
 >修改前
 ```
     private void add(Node node,E e){
@@ -57,6 +57,6 @@ private Node add(Node node,E e){
  root =  add(root,e);
 ```
 
-##二分搜索树查询元素
+## 二分搜索树查询元素
 
 
