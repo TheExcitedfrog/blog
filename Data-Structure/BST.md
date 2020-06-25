@@ -1,13 +1,13 @@
-#BST二分搜索树
+# BST二分搜索树
 
-####小知识点
+#### 小知识点
 1.E泛型支持compareTo比较语法
    ```
     e.compaerTo(param) > 0 || <0 比较大小
    ```
 2.e.equals
 
-##深入理解递归终止条件
+## 深入理解递归终止条件
 >修改前
 ```
     private void add(Node node,E e){
@@ -57,6 +57,103 @@ private Node add(Node node,E e){
  root =  add(root,e);
 ```
 
-##二分搜索树查询元素
+## 二分搜索树查询元素
+简单递归实现
+```
+private boolean contains(Node node,E e){
+        if (node == null)
+            return false;
+
+        if (e.compareTo(node.e) == 0)
+            return true;
+        else if (e.compareTo(node.e) < 0)
+            return contains(node.left,e);
+        else //(e.compareTo(node.e) >0)
+            return contains(node.right,e);
+
+    }
+```
+
+## 二分搜索树的遍历
+1.遍历操作就是把所有节点都访问一遍
+2.访问的原因和业务相关
+3.在线性结构下，**遍历是极其容易的**
+### 前序遍历
+
+先走根节点，再走左右节点
+
+```
+public void preOrder(){
+        preOrder(root);
+    }
+
+    private void preOrder(Node node){
+        if (node == null)
+            return;
+
+        System.out.println(node.e);
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+```
+>>>如何将一个层序遍历变成图形化输出？
+### 中序遍历
+
+**中序遍历天生自带顺序排序功能**
+
+```
+private void inOrder(Node node){
+        if (node == null)
+            return;
+        inOrder(node.left);
+        System.out.println(node.e);
+        inOrder(node.right);
+    }
+```
+
+### 后序遍历
+
+>应用 
+
+为二分搜索树释放内存
+```
+private void postOrder(Node node){
+        if (node == null)
+            return;
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.println(node.e);
+    }
+```
+
+## 深入理解前中后序遍历二分搜索树
+
+对进程入栈的顺序监控，就能良好把握节点弹出的时机
+
+### 二分搜索树前序遍历的非递归写法
+
+使用栈实现遍历顺序
+后入先出
+
+```
+public void preOrderNR(){
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()){
+            Node cur = stack.pop();
+            System.out.println(cur.e);
+
+            if (cur.right != null)
+                stack.push(cur.right);
+            if (cur.left != null)
+                stack.push(cur.left);
+        }
+
+    }
+```
+
+>使用非递归算法实现中序和后续遍历？
+
+## 二分搜索树的层序遍历
 
 
