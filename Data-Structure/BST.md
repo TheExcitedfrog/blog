@@ -1,10 +1,7 @@
 # BST二分搜索树
 
-<<<<<<< HEAD
 #### 小知识点
-=======
-### 小知识点
->>>>>>> a10bf071829045041dfc73c4f5345f3ba6b0b4e3
+
 1.E泛型支持compareTo比较语法
    ```
     e.compaerTo(param) > 0 || <0 比较大小
@@ -62,7 +59,6 @@ private Node add(Node node,E e){
 ```
 
 ## 二分搜索树查询元素
-<<<<<<< HEAD
 简单递归实现
 ```
 private boolean contains(Node node,E e){
