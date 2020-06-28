@@ -12,3 +12,7 @@
    flex-direction：row //**flex-direction 属性规定灵活项目的方向。**
    align-item：center //**align-items 属性定义flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式**。
    justify-content：center //将内容水平居中对齐
+
+#### 在横向滚动条内放置滚动
+
+在父组件container内部添加box-sizing：border-box修改padding造成的width超过100%造成界面滚动的问题
