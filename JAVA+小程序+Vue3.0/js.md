@@ -69,3 +69,9 @@ async getThemes(){
         const themeE = await theme.getHomeLocationE()
  }
 ```
+
+### paging对象
+
+一个生成器
+通过类对象实例化保存状态和属性
+
