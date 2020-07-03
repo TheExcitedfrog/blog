@@ -294,7 +294,6 @@ function create(){
         console.log(a)
     }
 }
-
 const fn = create()
 const a = 200
 fn() //100
