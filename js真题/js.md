@@ -201,5 +201,34 @@ const fn = function(){...}
 ## new Object()和Object.create()的区别
 {}等同于new Object(),原型是Object.prototype
 Object.create(null) 没有原型
-Object.create({...})可指定原型
+Object.create({...})可指定原型 该原型基于{}对象指向的Object基类 
+>结论
+
+Object.create是创建一个空对象 ，然后将参数内的对象保存在原型中
 ## this的场景题
+```js
+const User = {
+    count:1,
+    getCount: function(){
+        return this.count
+    }
+}
+    console.log(User.getCount()) // 1
+    const func = User.getCount
+    console.log(func()) // undefined
+```
+## 作用域和自由变量的场景题
+```js
+let i
+for(i = 1;i<=3;i++){
+    setTimeout(function(){
+        console.log(i)
+    },0)
+}
+// 10 10 10 
+```
+
+
+## 判断字符串以字母开头，后面字母数字下划线，长度6-30
+
+const reg = /^[a-zA-Z]\w{5,29}$/
