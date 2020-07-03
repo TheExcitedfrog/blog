@@ -1,5 +1,4 @@
 ## promise设计
-
 ```
     new Promise(
         //传入一个执行器

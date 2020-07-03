@@ -281,7 +281,7 @@ class是ES6语法规范，由ECMA委员会发布
 2. 向上级作用域，一层一层依次寻找，直至找到为止
 3. 如果到全局作用域都没找到，则报错xx is not defineed
 
-### 闭包
+#### 闭包
 
 作用域应用的特殊情况，有两种表现：
 1. 函数作为参数被传递
@@ -315,7 +315,7 @@ print(fn) // 100 作为自由变量，应该向上一个作用域进行寻找，
 
 所有的自由变量的查找，是在函数定义的地方，向上级作用域查找 **不是在执行的地方！！**
 
-### this
+#### this
 1. 作为普通函数
 2. 使用call apply bind
 3. 作为对象方法被调用
@@ -323,6 +323,60 @@ print(fn) // 100 作为自由变量，应该向上一个作用域进行寻找，
 5. 箭头函数
 
 **this取什么值，是在执行的时候确认的，不是在定义的时候**
+
+>普通this指向
+```js
+function fn1(){
+    console.log(this)
+}
+fn1() //window
+```
+>call和bind修改this指向
+```js
+fn1.call({x:100}) //{x:100}
+
+const fn2 = fn1.bind({x:200})
+fn2() //{x:200}
+```
+>箭头函数的指向
+```js
+const zhangsan = {
+    name:'张三',
+    sayHi(){
+        //this即当前对象
+        console.log(this)
+    },
+    wait(){
+        setTimeout(function(){
+            //this === window
+            console.log(this)
+            //这个函数被执行是setTimeout本身触发的，并不是类似zhangsan.sayHi这种执行方式
+        }) 
+    },
+    waitAgain(){ 
+        setTimeout(()=>{
+            //this即当前对象
+            //箭头函数的this永远取上一个作用域的this
+            console.log(this)
+        })
+    }
+}
+```
+>类下的指向
+```js
+class People{
+    constructor(name){
+        this.name = name
+        this.age = 20
+    }
+    sayHi(){
+        console.log(this)
+    }
+}
+
+const zhangsan = new People('张三')
+zhangsan.sayHi() //zhangsan对象
+```
 
 
 ## 问题
@@ -394,9 +448,73 @@ class myJQuery extends jQuery{
 
 ### this的不同场景，如何取值
 
+1. 当做普通函数被调用
+2. 使用 call bind apply   
+3. 作为对象方法调用 返回对象本身
+4. class方法中调用 返回本身
+5. 箭头函数 返回上一级作用域的this
+
+>bind的定义
+
+bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。
 ### 手写bind函数
+```js
+function fn1(a,b,c){
+    console.log('this',this) //this => {x:100}
+    console.log(a,b,c) //10,20,30
+    return 'this is fn1' //this is fun1
+}
+
+const fn2 = fn1.bind({x:100},10,20,30)
+const res = fn2()
+console.log(res)
+
+fn1.hasOwnProperty('bind') //false
+fn1._porto_ === Function.prototype //true
+```
+
+
+```js
+//模拟bind
+Function.prototype.bind1 = function(){
+    // 将参数拆解为数组
+    //将列表变成数组
+    const args = Array.prototype.slice.call(arguments) 
+
+    //获取this（数组第一项）
+    //shitf()将数组第一项弹出并分割
+    const t = args.shift()
+
+    //fn1.bind(...)中的fn1
+    const self = this
+
+    return function (){
+        return self.apply(t,args)
+    }
+}
+```
 
 ### 实际开发中闭包的应用场景，举例说明
+
+1. 隐藏数据->做一个cache工具
+```js
+//闭包隐藏数据，只提供api
+function createCache(){
+    const data = {} //闭包中的数据被隐藏，不被外界访问
+    return {
+        set:function(key,val){
+            data[key] =val 
+        },
+        get:function(key){
+            return data[key]
+        }
+    }
+}
+const c = createCache()
+c.set('a',100)
+console.log(c.get('a'))  //100
+```
+
 
 ### 创建10个`<a>`标签,点击的时候弹出对应序号
 
@@ -405,10 +523,24 @@ let i,a
 for(i =0;i<10;++){
     a = document.createElement('a')
     a.innerHTML = i + '<br>'
+    //这个事件在click的时候执行
     a.addEventListener('click', function(e){
         e.preventDefault()
         alert(i)
-    })
+    }) 
     document.body.appendChild(a)
-}
+} //所有click都是10
+```
+```js
+let a
+for(let i =0;i<10;++){
+    a = document.createElement('a')
+    a.innerHTML = i + '<br>'
+    //这个事件在click的时候执行
+    a.addEventListener('click', function(e){
+        e.preventDefault()
+        alert(i)
+    }) 
+    document.body.appendChild(a)
+} //i是在块作用域下生效的
 ```

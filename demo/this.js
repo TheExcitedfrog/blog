@@ -17,7 +17,29 @@ const zhangsan = {
     },
     wait(){
         setTimeout(function(){
-            
+            //this === window
+            console.log(this)
+            //这个函数被执行是setTimeout本身触发的，并不是类似zhangsan.sayHi这种执行方式
+        }) 
+    },
+    waitAgain(){ 
+        setTimeout(()=>{
+            //this即当前对象
+            //箭头函数的this永远取上一个作用域的this
+            console.log(this)
         })
     }
 }
+
+class People{
+    constructor(name){
+        this.name = name
+        this.age = 20
+    }
+    sayHi(){
+        console.log(this)
+    }
+}
+
+const zhangsan = new People('张三')
+zhangsan.sayHi() //zhangsan对象
