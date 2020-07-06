@@ -93,7 +93,7 @@ module.exports = smart(webpackCommonConf, {
                     minSize: 0,  // 大小限制
                     minChunks: 1  // 最少复用过几次
                 },
-
+ 
                 // 公共的模块
                 common: {
                     name: 'common', // chunk 名称
