@@ -18,7 +18,6 @@ console.log(isChorm) // Chorm/77.0....... Safari/537
 屏幕信息
 ## location
 url信息
-```js
 location.href
 location.protocol //http: https
 location.pathname // /learn/
