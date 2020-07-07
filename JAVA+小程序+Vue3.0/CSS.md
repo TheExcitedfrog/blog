@@ -24,3 +24,16 @@
 externalClasses:['l-class'] 
 
 有时候样式由开发者定义后传递
+
+### 点击态
+
+.rect-hover{
+    position: relative;
+    top: 3rpx;
+    left: 3rpx;
+    box-shadow: 0px 0px 8px rgba(0,0,0, .1) inset;
+}
+
+该样式不能定义在全局css内作用于自定义组件
+只能设置全局样式表import
+

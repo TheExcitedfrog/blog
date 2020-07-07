@@ -16,7 +16,13 @@ function isEqual(obj1,obj2){
     if(obj1Keys.length !== obj2Keys.length){
         return false
     }
-    
+    for(let key in obj1){
+        //比较key的value 递归
+        const res = isEqual(obj1[key],obj2[key])
+        if(!res){
+            return false
+        }
+    }
 }
 
 const obj1= {a:10,b:{x:100,y:200}}
