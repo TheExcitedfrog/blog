@@ -138,10 +138,14 @@ byname 有多个同样类型的对象
 ## 策略模式的变化方案
 1. byname 切换bean name
 2. @Qualifile 指定bean
-3. 有选择的只注入一股bean 注释掉某个bean上的@Component
+3. 有选择的只注入一个bean 注释掉某个bean上的@Component
 4. @Primary+@Component 
 
 ## 条件注解 @Conditional
 
 自定义条件注解
 @Conditional + Condition
+
+### 成品条件注解
+
+@ConditionOnProperty（value=，havinValue=，matchIfMissing 如果无配置项则为该默认值）
