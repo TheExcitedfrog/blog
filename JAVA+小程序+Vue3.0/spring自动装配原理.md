@@ -44,3 +44,13 @@ Service Provider Interface
 
 ## 自动装配是解决将SDK的bean引入IOC
 
+
+## 框架机制
+不会直接用框架
+二次封装/开发
+
+增强型SpringBoot
+
+异常反馈
+资源不存在/参数错误
+
